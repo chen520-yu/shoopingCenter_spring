@@ -20,8 +20,8 @@ public class UserServiceTests {
     public void test(){
         try {
             User user = new User();
-            user.setUsername("anna");
-            user.setPassword("anna");
+            user.setUsername("yyy");
+            user.setPassword("yyy");
             iUserService.reg(user);
         }catch (ServiceException e) {
             System.out.println(e.getClass().getSimpleName());

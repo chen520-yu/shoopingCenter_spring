@@ -1,6 +1,9 @@
 package com.example.real_store.mapper;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.real_store.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -53,5 +57,39 @@ public class UserMappingTest {
         users.forEach(System.out::println);
     }
 
+    @Test
+    public void selectByWrapper(){
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+
+        userQueryWrapper.like("username","c").lt("uid",5);
+
+        List<User> users = userMapper.selectList(userQueryWrapper);
+
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectByWrapperTwo(){
+        QueryWrapper<User> query = Wrappers.query();
+
+        query.likeRight("username","c").between("uid",1,3).orderByAsc("password");
+
+        List<User> users = userMapper.selectList(query);
+
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectByWrapperThree(){
+        QueryWrapper<User> query = Wrappers.query();
+
+//        query.in("uid",1,2);
+
+        query.in("uid", Arrays.asList(1,2,3));
+
+        List<User> users = userMapper.selectList(query);
+
+        users.forEach(System.out::println);
+    }
 
 }
