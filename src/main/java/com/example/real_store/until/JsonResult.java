@@ -1,13 +1,17 @@
 package com.example.real_store.until;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+
+@Data
 public class JsonResult<E> implements Serializable {
 
 //    状态码
     private Integer state;
 
-    private String massage;
+    private String message;
 
     private E data;
 
@@ -22,7 +26,7 @@ public class JsonResult<E> implements Serializable {
 
     public JsonResult(Throwable e){
         super();
-        this.massage=e.getMessage();
+        this.message =e.getMessage();
     }
 
     public JsonResult(Integer state, E data) {

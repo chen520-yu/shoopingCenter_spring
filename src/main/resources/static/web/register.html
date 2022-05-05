@@ -140,4 +140,33 @@
 		<!--页脚结束-->
 	</body>
 
+	<script>
+		$("#btn-reg").click(function (){
+			console.log($("#btn-reg").serialize())
+			$.ajax({
+				url:"users/reg",
+				data:$("btn-reg").serialize(),
+				dataType:"json",
+				success:function (res){
+					if(res.state==200){
+						alert("注册成功")
+					}else {
+						alert("注册失败"+res.message)
+					}
+
+
+				}
+
+			})
+
+
+
+		})
+
+
+
+	</script>
+
+
+
 </html>
