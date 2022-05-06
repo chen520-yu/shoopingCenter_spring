@@ -17,11 +17,11 @@ public class UserServiceTests {
     private IUserService iUserService;
 
     @Test
-    public void test() {
+    public void reg() {
         try {
             User user = new User();
-            user.setUsername("yyy");
-            user.setPassword("yyy");
+            user.setUsername("test");
+            user.setPassword("123");
             iUserService.reg(user);
         } catch (ServiceException e) {
             System.out.println(e.getClass().getSimpleName());
@@ -35,7 +35,7 @@ public class UserServiceTests {
             String username = "test";
             String password = "123";
             User user = iUserService.login(username, password);
-            System.out.println("注册成功");
+            System.out.println("登录成功");
         } catch (ServiceException e) {
             System.out.println("登录失败"+e.getClass().getSimpleName());
             System.out.println(e.getMessage());

@@ -85,7 +85,7 @@ public class UserServiceImpl implements IUserService {
 
         String md5Password = getMD5Password(password, user.getSalt());
 
-        if (md5Password!=user.getPassword()){
+        if (!md5Password.equals(user.getPassword())){
             throw new PasswordNotMatchException("密码错误");
         }
 
