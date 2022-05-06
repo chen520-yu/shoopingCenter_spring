@@ -37,10 +37,14 @@ public class UserServiceTests {
             User user = iUserService.login(username, password);
             System.out.println("登录成功");
         } catch (ServiceException e) {
-            System.out.println("登录失败"+e.getClass().getSimpleName());
+            System.out.println("登录失败" + e.getClass().getSimpleName());
             System.out.println(e.getMessage());
         }
+    }
 
+    @Test
+    public void changePassword() {
+        iUserService.changePassword("test","123","567");
     }
 
 }

@@ -111,6 +111,7 @@
 					</div>
 					<div class="col-md-4">
 						<ul>
+
 							<li><a href="#"><p>关于我们</p></a></li>
 							<li><a href="#">关于圆心</a></li>
 							<li><a href="#">联系我们</a></li>
@@ -142,10 +143,10 @@
 
 	<script>
 		$("#btn-reg").click(function (){
-			console.log($("#btn-reg").serialize())
+			console.log($("#form-reg").serialize())
 			$.ajax({
 				url:"users/reg",
-				data:$("btn-reg").serialize(),
+				data:$("#form-reg").serialize(),
 				dataType:"json",
 				success:function (res){
 					if(res.state==200){

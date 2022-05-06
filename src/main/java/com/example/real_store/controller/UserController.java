@@ -31,9 +31,19 @@ public class UserController extends BaseController {
         User login = userService.login(username, password);
 
         session.setAttribute("uid", login.getUid());
-        session.setAttribute("username",login.getUsername());
+        session.setAttribute("username", login.getUsername());
 
         return new JsonResult<User>(OK, login);
+    }
+
+    @RequestMapping("change_password")
+    public JsonResult<Void> changePassword(String oldPassword, String newPassword, HttpSession session) {
+
+        String username = getUsernameFromSession(session);
+
+        userService.changePassword(username, oldPassword, newPassword);
+
+        return new JsonResult<Void>(OK);
     }
 
 

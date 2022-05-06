@@ -1,20 +1,16 @@
 package com.example.real_store.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.real_store.entity.User;
 import com.example.real_store.mapper.UserMapper;
 import com.example.real_store.service.IUserService;
-import com.example.real_store.service.ex.InsertException;
-import com.example.real_store.service.ex.PasswordNotMatchException;
-import com.example.real_store.service.ex.UserNotFoundException;
-import com.example.real_store.service.ex.UsernameDuplicatedException;
+import com.example.real_store.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.ManagedMap;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.sql.Wrapper;
 import java.util.*;
 
 @Service
@@ -85,17 +81,53 @@ public class UserServiceImpl implements IUserService {
 
         String md5Password = getMD5Password(password, user.getSalt());
 
-        if (!md5Password.equals(user.getPassword())){
+        if (!md5Password.equals(user.getPassword())) {
             throw new PasswordNotMatchException("密码错误");
         }
 
-        User result=new User();
+        User result = new User();
 
         result.setUsername(username);
         result.setPassword(password);
         result.setSalt(user.getSalt());
 
         return result;
+
+    }
+
+    @Override
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+
+        userQueryWrapper.eq("username", username);
+
+        List<User> users = userMapper.selectList(userQueryWrapper);
+
+        if (users.size() == 0) {
+            throw new UserNotFoundException("用户数据不存在");
+        }
+
+        User user = users.get(0);
+
+        if (user.getIsDelete() == 1) {
+            throw new UserNotFoundException("用户数据不存在");
+        }
+
+        String md5Password = getMD5Password(oldPassword, user.getSalt());
+
+        if (!md5Password.equals(user.getPassword())) {
+            throw new PasswordNotMatchException("原密码错误");
+        }
+
+        String newPas = getMD5Password(newPassword, user.getSalt());
+
+        user.setPassword(newPas);
+
+        int i = userMapper.update(user, userQueryWrapper);
+
+        if (i != 1) {
+            throw new UpdateException("更新用户数据出现未知错误，请联系系统管理员");
+        }
 
     }
 
