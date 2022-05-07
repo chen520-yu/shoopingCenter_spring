@@ -47,4 +47,20 @@ public class UserServiceTests {
         iUserService.changePassword("test","123","567");
     }
 
-}
+    @Test
+    public void updateUserInfo() {
+        try {
+            User user = new User();
+            user.setPhone("1516165");
+            user.setEmail("1561@12.cn");
+            iUserService.updateInfo(1,"管理员",user);
+
+        }catch (ServiceException e){
+            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+    }

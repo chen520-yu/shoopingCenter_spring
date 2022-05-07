@@ -46,5 +46,25 @@ public class UserController extends BaseController {
         return new JsonResult<Void>(OK);
     }
 
+    public JsonResult<User> getByUid(HttpSession session){
+        Integer uid = getUidFromSession(session);
+
+        User userInfo = userService.getUserInfo(uid);
+
+        return new JsonResult<User>(OK,userInfo);
+    }
+
+
+    public JsonResult<Void> changeInfo(User user,HttpSession session){
+        String usernameFromSession = getUsernameFromSession(session);
+
+        Integer uidFromSession = getUidFromSession(session);
+
+        userService.updateInfo(uidFromSession,usernameFromSession,user);
+
+        return new JsonResult<Void>(OK);
+    }
+
+
 
 }

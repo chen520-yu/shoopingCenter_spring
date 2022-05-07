@@ -131,6 +131,62 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public User getUserInfo(Integer uid) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        hashMap.put("uid",uid);
+
+        List<User> users = userMapper.selectByMap(hashMap);
+
+        if (users.size()==0){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+
+        User user = users.get(0);
+
+        User result = new User();
+
+        if (user.getIsDelete()==1){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+
+        result.setUsername(user.getUsername());
+        result.setPhone(user.getPhone());
+        result.setEmail(user.getEmail());
+        result.setGender(user.getGender());
+
+        return result;
+    }
+
+    @Override
+    public void updateInfo(Integer uid,String username, User user) {
+        User user1 = new User();
+
+        user1.setUid(uid);
+
+        user1 = userMapper.selectById(user1);
+
+        if (user1==null){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+        if (user1.getIsDelete()==1){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+
+        user.setUid(uid);
+        user.setModifiedUser(username);
+        user.setModifiedTime(new Date());
+
+        int i = userMapper.updateById(user);
+
+        if(i!=1){
+            throw new UpdateException("更新用户数据出现未知错误，请联系管理员");
+        }
+
+
+    }
+
     private String getMD5Password(String password, String salt) {
         for (int i = 0; i < 3; i++) {
             //        md5加密算法方法的调用

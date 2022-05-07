@@ -9,4 +9,8 @@ public interface IUserService {
     User login(String username,String password);
 
     void changePassword(String username,String oldPassword,String newPassword);
+
+    User getUserInfo(Integer uid);
+
+    void updateInfo(Integer uid,String username,User user);
 }
