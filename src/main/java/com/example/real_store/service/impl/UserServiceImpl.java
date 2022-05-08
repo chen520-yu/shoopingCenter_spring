@@ -187,6 +187,29 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public void changeAvatar(Integer uid, String username, String avatar) {
+        QueryWrapper<User> query = Wrappers.query();
+        query.eq("uid",uid);
+
+        List<User> users = userMapper.selectList(query);
+
+        if (users.size()==0||users.get(0).getIsDelete()==1){
+            throw new UserNotFoundException("用户数据不存在");
+        }
+
+        users.get(0).setAvatar(avatar);
+        users.get(0).setUsername(username);
+        users.get(0).setModifiedTime(new Date());
+
+        int i = userMapper.updateById(users.get(0));
+        if (i!=1){
+            throw new UpdateException("更新用户数据时出现未知错误，请联系系统管理员");
+        }
+
+
+    }
+
     private String getMD5Password(String password, String salt) {
         for (int i = 0; i < 3; i++) {
             //        md5加密算法方法的调用

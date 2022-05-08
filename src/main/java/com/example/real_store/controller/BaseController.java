@@ -1,5 +1,6 @@
 package com.example.real_store.controller;
 
+import com.example.real_store.controller.ex.*;
 import com.example.real_store.service.ex.*;
 import com.example.real_store.until.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,7 +32,20 @@ public class BaseController {
             result.setState(4002);
         }else if (e instanceof UpdateException){
             result.setState(5001);
+        }else if (e instanceof FileEmptyException){
+            result.setState(6000);
+        }else if (e instanceof FileSizeException){
+            result.setState(6001);
+        }else if (e instanceof FileTypeException){
+            result.setState(6002);
+        }else if (e instanceof FileStateException){
+            result.setState(6003);
+        }else if (e instanceof FileUpLoadException){
+            result.setState(6004);
         }
+
+
+
         return result;
     }
 

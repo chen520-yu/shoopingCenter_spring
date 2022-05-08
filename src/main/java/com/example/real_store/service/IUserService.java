@@ -13,4 +13,7 @@ public interface IUserService {
     User getUserInfo(Integer uid);
 
     void updateInfo(Integer uid,String username,User user);
+
+
+    void changeAvatar(Integer uid,String username,String avatar);
 }
