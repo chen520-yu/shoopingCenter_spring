@@ -59,13 +59,14 @@ public class UserMappingTest {
 
     @Test
     public void selectByWrapper() {
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
 
-        userQueryWrapper.like("username", "c").lt("uid", 5);
+        queryWrapper.eq("uid",1);
 
-        List<User> users = userMapper.selectList(userQueryWrapper);
 
-        users.forEach(System.out::println);
+
+
+
     }
 
     @Test
