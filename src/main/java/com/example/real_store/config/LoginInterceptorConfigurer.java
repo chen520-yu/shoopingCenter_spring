@@ -1,11 +1,14 @@
 package com.example.real_store.config;
 
 import com.example.real_store.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 
+@Configuration
 public class LoginInterceptorConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -28,5 +31,13 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         patterns.add("/products/**");
 
         registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns(patterns);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        //重写方法
+        //修改tomcat 虚拟映射
+        registry.addResourceHandler("/upload/**").
+                addResourceLocations("file:D:/IDEA/project/Real_Store/src/main/resources/upload/");//定义相对路径 很重要
     }
 }

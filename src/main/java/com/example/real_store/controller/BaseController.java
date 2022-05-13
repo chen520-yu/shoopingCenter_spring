@@ -16,7 +16,7 @@ public class BaseController {
     }
 
     protected final String getUsernameFromSession(HttpSession session) {
-        return session.getAttribute("uid").toString();
+        return session.getAttribute("username").toString();
     }
 
     @ExceptionHandler(ServiceException.class)

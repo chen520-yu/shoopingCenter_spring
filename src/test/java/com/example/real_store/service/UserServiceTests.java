@@ -23,9 +23,9 @@ public class UserServiceTests {
             user.setUsername("test");
             user.setPassword("123");
             iUserService.reg(user);
-        } catch (ServiceException e) {
+        } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 

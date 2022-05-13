@@ -85,13 +85,7 @@ public class UserServiceImpl implements IUserService {
             throw new PasswordNotMatchException("密码错误");
         }
 
-        User result = new User();
-
-        result.setUsername(username);
-        result.setPassword(password);
-        result.setSalt(user.getSalt());
-
-        return result;
+        return user;
 
     }
 
@@ -199,7 +193,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         users.get(0).setAvatar(avatar);
-        users.get(0).setUsername(username);
+        users.get(0).setModifiedUser(username);
         users.get(0).setModifiedTime(new Date());
 
         int i = userMapper.updateById(users.get(0));

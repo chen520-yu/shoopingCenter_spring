@@ -1,5 +1,6 @@
 package com.example.real_store.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,7 +17,7 @@ import java.util.Date;
 @ToString
 @Data
 public class User implements Serializable {
-    @TableId
+    @TableId(type=IdType.AUTO)
     private Integer uid;
     private String username;
     private String password ;

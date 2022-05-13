@@ -937,7 +937,7 @@ img {
   display: block;
   width: 100% \9;
   max-width: 100%;
-  height: auto;
+  height: 100px;
 }
 .img-rounded {
   border-radius: 6px;

@@ -36,8 +36,12 @@ public class UserController extends BaseController {
     public JsonResult<User> login(String username, String password, HttpSession session) {
         User login = userService.login(username, password);
 
+//        System.out.println(login.getUid());
+//        System.out.println(login.getUsername());
         session.setAttribute("uid", login.getUid());
         session.setAttribute("username", login.getUsername());
+//        System.out.println("get uid from session"+getUidFromSession(session));
+//        System.out.println("get username from session"+getUsernameFromSession(session));
 
         return new JsonResult<User>(OK, login);
     }
@@ -84,7 +88,7 @@ public class UserController extends BaseController {
         AVATARS_TYPES.add("image/gif");
     }
 
-    @PostMapping("change_info")
+    @PostMapping("change_avatar")
     public JsonResult<String> changeAvatar(@RequestParam("file")MultipartFile file,HttpSession session){
         if (file.isEmpty()){
             throw new FileEmptyException("上传的头像不允许为空");
@@ -92,13 +96,17 @@ public class UserController extends BaseController {
         if (file.getSize()>AVATAR_MAX_SIZE){
             throw new FileSizeException("不允许上传超过"+AVATAR_MAX_SIZE/1024+"KB的头像文件");
         }
+
+
         String contentType = file.getContentType();
         if (!AVATARS_TYPES.contains(contentType)){
             throw new FileTypeException("不允许使用该类型的文件作为头像，运行的文件类型为"+AVATARS_TYPES.toString());
         }
 
-//        获取当前项目的绝对磁盘路径
-        String upload = session.getServletContext().getRealPath("upload");
+
+
+        String property = System.getProperty("user.dir");
+        String upload=property+"\\src\\main\\resources\\upload";
 
         File dir = new File(upload);
 
