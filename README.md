@@ -4,7 +4,9 @@
 
 使用技术:springBoot mybaits-plus mysql
 
-第一个从零开始的比较完整的springboot项目吧，前端获取的资料
+只做了后端，前端获取的资料
+
+找的一个开源项目
 
 
 
